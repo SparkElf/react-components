@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "declaration": true, //是否自动生成生命文件
+        "declarationDir": "./build", //声明文件输出目录
+        "allowSyntheticDefaultImports": true, //是否允许默认导出
+        "jsx": "react-jsx",
+    },
+    "include": [
+        "./src"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
