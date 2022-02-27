@@ -1,0 +1,14 @@
+.loading-cycle {
+    position: relative;
+    svg {
+        z-index: 1;
+    }
+    .bigText {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-weight: bold;
+        z-index: 2;
+    }
+}
