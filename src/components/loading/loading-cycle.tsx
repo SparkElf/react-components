@@ -29,13 +29,12 @@ export const Loading = ({
         <div className="loading-cycle" style={{ width: center * 2, height: center * 2 }}>
             <svg>
                 <circle
+                    className="backgroundCircle"
                     cx={center} cy={center} r={r}
-                    fill="transparent"
-                    stroke="#f3f3f3" strokeWidth={strokeWidth}
+                    strokeWidth={strokeWidth}
                 />
                 <circle
                     cx={center} cy={center} r={r}
-                    fill="transparent"
                     stroke={stroke} strokeWidth={strokeWidth}
                     ref={measuredRef}
                     strokeDasharray={length}

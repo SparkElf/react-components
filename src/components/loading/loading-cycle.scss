@@ -2,6 +2,12 @@
     position: relative;
     svg {
         z-index: 1;
+        circle {
+            fill: transparent;
+        }
+        .backgroundCircle {
+            stroke: #f3f3f3;
+        }
     }
     .bigText {
         position: absolute;

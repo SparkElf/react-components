@@ -4,14 +4,13 @@ import { createContext, lazy, PureComponent, ReactNode, Suspense, useEffect, use
 import { render } from "react-dom";
 
 import { BrowserRouter, Outlet, Route, Routes, useLocation } from "react-router-dom";
-import { Loading } from '../../src/components/loading/loading-cycle'
+import { Rating } from '../../src/components/rating/rating'
 
 
 const App = () => {
     return (
         <>
-            <Loading percent={100} r={60} strokeWidth={10}></Loading>
-
+            <Rating rating={2.3}></Rating>
         </>
     )
 }

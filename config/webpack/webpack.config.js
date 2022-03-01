@@ -24,8 +24,15 @@ export default {//不用webpack merge时这里要改成匿名默认导出
                 use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
             },
             {
+                test: /\.svg$/i,
+                type: 'asset/source',
+                include: [path.resolve('src/assets/code')]
+            },
+            {
+
                 test: /\.(png|svg|jpe?g)$/i,
-                loader: 'url-loader'
+                type: 'asset/resource',
+                exclude: [path.resolve('src/assets/code')]
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/i,
