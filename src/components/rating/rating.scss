@@ -1,32 +1,7 @@
 .sparkelf.rating {
-    --percent: calc(var(--rating) / 5 * 100%);
     display: flex;
     align-items: center;
-    position: relative;
-    /*
-    font-family: "Segoe UI Symbol";
-    
-    &::before {
-        content: "★★★★★";
-        color: gold;
-        font-size: 30px;
-        letter-spacing: 3px;
-        background: linear-gradient(90deg, #fc0 var(--percent), #ebe7e7 var(--percent));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }*/
     svg {
         fill: gold;
-    }
-    .mask {
-        background-color: black;
-
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        width: calc(100% - var(--percent));
-        z-index: 1;
-        mix-blend-mode: color;
     }
 }

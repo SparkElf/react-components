@@ -1,32 +1,58 @@
-import { Children, CSSProperties, Suspense } from 'react'
-import { SVG } from '../common/SVG'
+import { Children, CSSProperties, forwardRef, FunctionComponent, Suspense, useEffect, useRef, useState } from 'react'
+
 import './rating.scss'
+import SVG from '../../assets/code/star.svg'
+import { render } from 'react-dom'
 
 interface Props {
+    Star?: any
     rating: number
+    backgroundColor?: string
+    color?: string
+    size?: number
 }
+
 export const Rating = ({
-    rating = 0
+    Star = SVG,
+    color = 'gold',
+    backgroundColor = 'gray',
+    size = 30,
+    rating
 }: Props) => {
-    let style = { '--rating': rating } as CSSProperties
+    const refs = useRef([])
+    const [elements, setElements] = useState([])
+    const [gradients, setGradients] = useState(null)
+    useEffect(() => {
+        let els = [], grads = []
+        for (let i = 0; i < 5; i++) {
+            els.push(<Star key={i} ref={el => { refs.current[i] = el }} width={size} height={size} ></Star>)
+            if (rating - i < 1 && rating - i > 0) {
+                let root = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+                render(
+                    <linearGradient id="gradient" x1="0" x2="100%" y1="0" y2="0">
+                        <stop offset={(rating - i) * 100 + "%"} stopColor={color}></stop>
+                        <stop offset={(rating - i) * 100 + "%"} stopColor={backgroundColor}></stop>
+                    </linearGradient>
+                    , root)
+                setGradients(root)
+            }
+        }
+        setElements(els)
 
-
+    }, [Star, rating])
+    useEffect(() => {
+        if (elements.length !== 0) {
+            for (let i = 0; i < Math.floor(rating); i++)
+                refs.current[i].getElementsByTagName('path')[0].setAttribute('fill', color)
+            refs.current[Math.floor(rating)].getElementsByTagName('path')[0].setAttribute('fill', 'url(#gradient)')
+            refs.current[Math.floor(rating)].appendChild(gradients.firstChild.cloneNode(2))
+            for (let i = Math.floor(rating) + 1; i < 5; i++)
+                refs.current[i].getElementsByTagName('path')[0].setAttribute('fill', backgroundColor)
+        }
+    }, [elements])
     return (
-        <div className="sparkelf rating" style={style}>
-            <SVG src='/src/assets/code/star.svg'></SVG>
-            <svg xmlns="http://www.w3.org/2000/svg"  >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg>
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg>
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg>
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg"  >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M381.2 150.3L524.9 171.5C536.8 173.2 546.8 181.6 550.6 193.1C554.4 204.7 551.3 217.3 542.7 225.9L438.5 328.1L463.1 474.7C465.1 486.7 460.2 498.9 450.2 506C440.3 513.1 427.2 514 416.5 508.3L288.1 439.8L159.8 508.3C149 514 135.9 513.1 126 506C116.1 498.9 111.1 486.7 113.2 474.7L137.8 328.1L33.58 225.9C24.97 217.3 21.91 204.7 25.69 193.1C29.46 181.6 39.43 173.2 51.42 171.5L195 150.3L259.4 17.97C264.7 6.954 275.9-.0391 288.1-.0391C300.4-.0391 311.6 6.954 316.9 17.97L381.2 150.3z" /></svg>
-            </svg>
-
+        <div className='sparkelf rating'>
+            {elements}
         </div>
     )
 }

@@ -10,7 +10,6 @@ export default {//不用webpack merge时这里要改成匿名默认导出
     },
     module: {
         rules: [
-
             {
                 test: /\.ts$/,
                 use: ["ts-loader"],
@@ -24,12 +23,22 @@ export default {//不用webpack merge时这里要改成匿名默认导出
                 use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
             },
             {
+                //https://react-svgr.com/docs/webpack/
+                type: 'asset',
+                resourceQuery: /url/, // *.svg?url
+            },
+            {
+                //https://react-svgr.com/docs/webpack/ svg转换为react组件而不是字符串
                 test: /\.svg$/i,
-                type: 'asset/source',
+                issuer: /\.[jt]sx?$/,
+                use: [{
+                    loader: '@svgr/webpack', options: {
+                        ref: true
+                    }
+                }],
                 include: [path.resolve('src/assets/code')]
             },
             {
-
                 test: /\.(png|svg|jpe?g)$/i,
                 type: 'asset/resource',
                 exclude: [path.resolve('src/assets/code')]

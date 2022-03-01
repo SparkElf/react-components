@@ -10,7 +10,7 @@ import { Rating } from '../../src/components/rating/rating'
 const App = () => {
     return (
         <>
-            <Rating rating={2.3}></Rating>
+            <Rating rating={2.3} ></Rating>
         </>
     )
 }
