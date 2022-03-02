@@ -1,7 +1,7 @@
 import { Children, CSSProperties, forwardRef, FunctionComponent, Suspense, useEffect, useRef, useState } from 'react'
 
 import './rating.scss'
-import SVG from '../../assets/code/star.svg'
+import SVG from '../../assets/code/star.svg' //需要SVGR的支持
 import { render } from 'react-dom'
 
 interface Props {
